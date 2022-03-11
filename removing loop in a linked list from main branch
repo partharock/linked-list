@@ -1,0 +1,50 @@
+on time o1 space
+  void removeLoop(Node* head)
+    {
+        if(head->next==head) return;
+        
+        Node* slow = head;
+        Node* fast = head;
+        
+        do{
+            slow=slow->next;
+            
+            if(fast->next)
+            fast=fast->next->next;
+        }while( slow and fast  and fast->next and slow!=fast );
+        
+        if( !slow or !fast or !fast->next or slow!=fast )
+        return;
+        
+        slow=head;
+        
+         while(slow!=fast)
+         {
+             slow=slow->next;
+             fast=fast->next;
+         }
+        Node*mover=slow;
+        
+        while(mover->next!=slow)
+        mover=mover->next;
+        
+        mover->next=NULL;
+        
+    }
+    
+    on time on space
+     void removeLoop(Node* head)
+    {
+        unordered_map<Node*,int> umap;
+        Node*temp=head;
+        while(temp->next!=NULL)
+        {
+            if(umap[temp->next]>1 )
+            {
+                temp->next=NULL;
+                return ;
+            }
+            umap[temp]++;
+            temp=temp->next;
+        }
+    }
